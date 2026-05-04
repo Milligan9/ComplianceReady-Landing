@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ComplianceReady — T3C Ready Staff Training Compliance for Residential Care</title>
+  <meta name="description" content="ComplianceReady is T3C Ready software that tracks TAC §748 training compliance, staff clearance, and annual CE hours for Texas GRO and RTC facilities."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0d1b2a; --teal: #0e9e8e; --teal-lt: #12c4b0;
+      --amber: #f59e0b; --cream: #fdfaf4; --slate: #334155;
+      --mid: #64748b; --border: #e2e8f0; --green: #16a34a;
+      --red: #dc2626; --white: #ffffff; --purple: #7c3aed;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--slate); overflow-x: hidden; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 16px 48px; background: rgba(13,27,42,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); transition: box-shadow 0.3s; }
+    .nav-logo { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 900; color: var(--white); }
+    .nav-logo span { color: var(--teal); }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { background: var(--teal) !important; color: var(--white) !important; padding: 10px 22px; border-radius: 8px; font-weight: 600 !important; transition: background 0.2s, transform 0.15s !important; }
+    .nav-cta:hover { background: var(--teal-lt) !important; transform: translateY(-1px); }
+
+    /* HERO */
+    .hero { min-height: 100vh; background: var(--navy); display: flex; align-items: center; position: relative; overflow: hidden; padding: 120px 48px 80px; }
+    .hero::before { content: ''; position: absolute; top: -200px; right: -100px; width: 700px; height: 700px; background: radial-gradient(circle, rgba(14,158,142,0.18) 0%, transparent 70%); pointer-events: none; }
+    .hero::after { content: ''; position: absolute; bottom: -100px; left: -200px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 70%); pointer-events: none; }
+    .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .hero-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; animation: fadeUp 0.6s ease both; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 99px; font-size: 12px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; }
+    .badge-teal { background: rgba(14,158,142,0.15); border: 1px solid rgba(14,158,142,0.3); color: var(--teal-lt); }
+    .badge-amber { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.35); color: #fbbf24; }
+    .badge-teal::before, .badge-amber::before { content: '●'; font-size: 7px; }
+    .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(40px, 5vw, 62px); font-weight: 900; line-height: 1.08; color: var(--white); margin-bottom: 24px; animation: fadeUp 0.6s 0.1s ease both; }
+    .hero h1 em { font-style: italic; color: var(--teal-lt); }
+    .hero-sub { font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.65); margin-bottom: 40px; animation: fadeUp 0.6s 0.2s ease both; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; animation: fadeUp 0.6s 0.3s ease both; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--teal); color: var(--white); padding: 16px 32px; border-radius: 10px; font-size: 16px; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; box-shadow: 0 4px 24px rgba(14,158,142,0.35); }
+    .btn-primary:hover { background: var(--teal-lt); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(14,158,142,0.45); }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: rgba(255,255,255,0.8); padding: 16px 32px; border-radius: 10px; font-size: 16px; font-weight: 500; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); transition: border-color 0.2s, color 0.2s, transform 0.15s; }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.5); color: var(--white); transform: translateY(-2px); }
+    .hero-stats { display: flex; gap: 32px; margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.08); animation: fadeUp 0.6s 0.4s ease both; }
+    .hero-stat-num { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 900; color: var(--teal-lt); }
+    .hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.5); font-weight: 500; margin-top: 2px; }
+
+    /* Mockup */
+    .hero-visual { animation: fadeUp 0.8s 0.2s ease both; }
+    .app-mockup { background: #1e293b; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; overflow: hidden; box-shadow: 0 32px 80px rgba(0,0,0,0.5); }
+    .mockup-bar { background: #0f172a; padding: 12px 16px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .mockup-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .mockup-title { font-size: 12px; color: rgba(255,255,255,0.4); margin-left: 8px; font-weight: 500; }
+    .mockup-content { padding: 20px; }
+    .mockup-banner { background: #fbbf24; color: #0f172a; padding: 8px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; margin-bottom: 16px; text-align: center; }
+    .mockup-clearance { background: rgba(22,163,74,0.15); border: 1px solid rgba(22,163,74,0.3); border-radius: 8px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+    .mockup-clearance-text { font-size: 12px; font-weight: 700; color: #4ade80; }
+    .mockup-clearance-sub { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+    .mockup-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 12px; }
+    .mockup-stat { background: #0f172a; border-radius: 6px; padding: 10px 8px; text-align: center; }
+    .mockup-stat-v { font-size: 16px; font-weight: 800; }
+    .mockup-stat-l { font-size: 9px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+    .mockup-prog-wrap { margin-bottom: 12px; }
+    .mockup-prog-label { display: flex; justify-content: space-between; font-size: 10px; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+    .mockup-progress { background: #0f172a; border-radius: 99px; height: 8px; overflow: hidden; }
+    .mockup-progress-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, #0e9e8e, #12c4b0); }
+    .mockup-training { background: #0f172a; border-radius: 6px; padding: 10px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
+    .mockup-training-name { font-size: 11px; color: rgba(255,255,255,0.8); font-weight: 500; }
+    .mkbadge { font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 99px; }
+    .mkbadge-done { background: rgba(22,163,74,0.2); color: #4ade80; }
+    .mkbadge-over { background: rgba(220,38,38,0.2); color: #f87171; }
+
+    /* SHARED */
+    .section-label { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 16px; }
+    .section-title { font-family: 'Fraunces', serif; font-size: clamp(30px, 4vw, 46px); font-weight: 900; line-height: 1.15; color: var(--navy); margin-bottom: 20px; }
+    .section-sub { font-size: 17px; color: var(--mid); line-height: 1.7; max-width: 560px; }
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* T3C SECTION */
+    .t3c { background: linear-gradient(135deg, #0d1b2a 0%, #0a2a24 100%); padding: 80px 48px; position: relative; overflow: hidden; }
+    .t3c::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--amber), var(--teal-lt), var(--amber)); }
+    .t3c-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .t3c-badge-big { display: inline-flex; align-items: center; gap: 12px; background: rgba(245,158,11,0.12); border: 2px solid rgba(245,158,11,0.4); padding: 12px 24px; border-radius: 12px; margin-bottom: 24px; }
+    .t3c-badge-icon { font-size: 28px; }
+    .t3c-badge-text { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 900; color: #fbbf24; }
+    .t3c-badge-sub { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+    .t3c h2 { font-family: 'Fraunces', serif; font-size: clamp(28px, 3.5vw, 42px); font-weight: 900; color: var(--white); margin-bottom: 16px; line-height: 1.15; }
+    .t3c h2 em { font-style: italic; color: #fbbf24; }
+    .t3c p { font-size: 16px; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 20px; }
+    .t3c-cards { display: flex; flex-direction: column; gap: 14px; }
+    .t3c-card { display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,0.04); border: 1px solid rgba(245,158,11,0.15); border-radius: 10px; padding: 16px; transition: border-color 0.2s, background 0.2s; }
+    .t3c-card:hover { border-color: rgba(245,158,11,0.35); background: rgba(255,255,255,0.07); }
+    .t3c-card-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+    .t3c-card-title { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .t3c-card-text { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+    /* QUICK START */
+    .quickstart { background: #f0fdf9; border-top: 1px solid #ccfbf1; padding: 80px 48px; }
+    .quickstart-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .quickstart h2 { font-family: 'Fraunces', serif; font-size: clamp(28px, 3vw, 40px); font-weight: 900; color: var(--navy); margin-bottom: 16px; }
+    .quickstart h2 em { font-style: italic; color: var(--teal); }
+    .quickstart-lead { font-size: 16px; color: var(--mid); line-height: 1.7; margin-bottom: 28px; }
+    .qs-steps { display: flex; flex-direction: column; gap: 14px; }
+    .qs-step { display: flex; gap: 14px; align-items: flex-start; padding: 18px; border-radius: 10px; background: var(--white); border: 1px solid var(--border); transition: border-color 0.2s, box-shadow 0.2s; }
+    .qs-step:hover { border-color: var(--teal); box-shadow: 0 4px 16px rgba(14,158,142,0.08); }
+    .qs-icon { width: 38px; height: 38px; border-radius: 8px; background: rgba(14,158,142,0.1); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+    .qs-title { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .qs-text { font-size: 13px; color: var(--mid); line-height: 1.55; }
+
+    /* PAIN */
+    .pain { background: var(--white); padding: 100px 48px; }
+    .pain-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .pain-cards { display: flex; flex-direction: column; gap: 18px; }
+    .pain-card { display: flex; gap: 16px; align-items: flex-start; padding: 22px; border-radius: 12px; border: 1px solid var(--border); background: var(--cream); transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
+    .pain-card:hover { border-color: var(--teal); box-shadow: 0 8px 32px rgba(14,158,142,0.1); transform: translateX(4px); }
+    .pain-icon { width: 44px; height: 44px; border-radius: 10px; background: rgba(220,38,38,0.08); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .pain-card-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+    .pain-card-text { font-size: 14px; color: var(--mid); line-height: 1.6; }
+    .quote-block { background: var(--navy); border-radius: 16px; padding: 40px; position: relative; overflow: hidden; }
+    .quote-block::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Fraunces', serif; font-size: 160px; font-weight: 900; color: rgba(14,158,142,0.12); line-height: 1; }
+    .quote-text { font-family: 'Fraunces', serif; font-size: 21px; font-weight: 400; font-style: italic; color: var(--white); line-height: 1.6; margin-bottom: 24px; position: relative; }
+    .quote-author { font-size: 13px; font-weight: 600; color: var(--teal-lt); }
+    .quote-role { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+    .quote-stat { margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; gap: 32px; }
+    .quote-stat-num { font-family: 'Fraunces', serif; font-size: 34px; font-weight: 900; color: var(--amber); }
+    .quote-stat-label { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+    /* FEATURES */
+    .features { background: var(--cream); padding: 100px 48px; }
+    .features-inner { max-width: 1200px; margin: 0 auto; }
+    .features-header { text-align: center; margin-bottom: 56px; }
+    .features-header .section-sub { margin: 0 auto; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .feature-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 30px; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+    .feature-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--teal-lt)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+    .feature-card:hover { border-color: rgba(14,158,142,0.3); box-shadow: 0 16px 48px rgba(14,158,142,0.08); transform: translateY(-4px); }
+    .feature-card:hover::before { transform: scaleX(1); }
+    .feature-card.highlight { border-color: var(--amber); background: linear-gradient(135deg, #fffbeb 0%, var(--white) 100%); }
+    .feature-card.highlight::before { background: linear-gradient(90deg, var(--amber), #fbbf24); transform: scaleX(1); }
+    .feature-new { position: absolute; top: 14px; right: 14px; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .feature-new-amber { background: var(--amber); color: #0f172a; }
+    .feature-icon { width: 50px; height: 50px; border-radius: 12px; background: rgba(14,158,142,0.1); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 18px; }
+    .feature-icon-amber { background: rgba(245,158,11,0.12); }
+    .feature-title { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 9px; }
+    .feature-text { font-size: 13px; color: var(--mid); line-height: 1.7; }
+    .feature-tag { display: inline-block; margin-top: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--teal); background: rgba(14,158,142,0.1); padding: 3px 10px; border-radius: 99px; }
+    .feature-tag-amber { color: #92400e; background: rgba(245,158,11,0.15); }
+    .feature-link { display: inline-flex; align-items: center; gap: 4px; margin-top: 12px; font-size: 13px; font-weight: 600; color: var(--teal); text-decoration: none; }
+    .feature-link:hover { color: var(--teal-lt); }
+
+    /* TESTIMONIALS */
+    .testimonials { background: var(--navy); padding: 100px 48px; }
+    .testimonials-inner { max-width: 1200px; margin: 0 auto; }
+    .testimonials-header { text-align: center; margin-bottom: 56px; }
+    .testimonials-header .section-title { color: var(--white); }
+    .testimonials-header .section-sub { color: rgba(255,255,255,0.6); margin: 0 auto; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .testimonial-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 32px; position: relative; transition: border-color 0.2s, background 0.2s, transform 0.2s; }
+    .testimonial-card:hover { border-color: rgba(14,158,142,0.3); background: rgba(255,255,255,0.07); transform: translateY(-4px); }
+    .testimonial-card::before { content: '"'; position: absolute; top: 16px; right: 20px; font-family: 'Fraunces', serif; font-size: 64px; font-weight: 900; color: rgba(14,158,142,0.2); line-height: 1; }
+    .testimonial-stars { color: var(--amber); font-size: 14px; margin-bottom: 16px; letter-spacing: 2px; }
+    .testimonial-text { font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 24px; font-style: italic; }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .testimonial-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--teal), var(--teal-lt)); display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-size: 16px; font-weight: 900; color: var(--white); flex-shrink: 0; }
+    .testimonial-name { font-size: 14px; font-weight: 700; color: var(--white); }
+    .testimonial-role { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+
+    /* HOW IT WORKS */
+    .how { background: var(--cream); padding: 100px 48px; }
+    .how-inner { max-width: 1200px; margin: 0 auto; }
+    .how-header { text-align: center; margin-bottom: 56px; }
+    .how-header .section-sub { margin: 0 auto; }
+    .how-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 32px; position: relative; }
+    .how-steps::before { content: ''; position: absolute; top: 28px; left: 60px; right: 60px; height: 2px; background: linear-gradient(90deg, var(--teal), var(--teal-lt), var(--teal)); opacity: 0.25; }
+    .how-step { text-align: center; }
+    .how-step-num { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--teal), var(--teal-lt)); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-family: 'Fraunces', serif; font-size: 22px; font-weight: 900; color: var(--white); box-shadow: 0 0 0 8px rgba(14,158,142,0.1); }
+    .how-step-title { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .how-step-text { font-size: 13px; color: var(--mid); line-height: 1.6; }
+
+    /* PRICING */
+    .pricing { background: var(--white); padding: 100px 48px; }
+    .pricing-inner { max-width: 1100px; margin: 0 auto; }
+    .pricing-header { text-align: center; margin-bottom: 56px; }
+    .pricing-header .section-sub { margin: 0 auto; }
+    .pricing-setup { background: linear-gradient(135deg, #0d1b2a, #0e3d36); border-radius: 16px; padding: 36px 48px; margin-bottom: 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+    .pricing-setup-left h3 { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 900; color: var(--white); margin-bottom: 8px; }
+    .pricing-setup-left p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.6; max-width: 480px; }
+    .pricing-setup-right { text-align: center; flex-shrink: 0; }
+    .pricing-setup-price { font-family: 'Fraunces', serif; font-size: 48px; font-weight: 900; color: var(--amber); line-height: 1; }
+    .pricing-setup-label { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+    .pricing-setup-includes { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px; }
+    .pricing-include-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.65); }
+    .pricing-include-item::before { content: '✓'; color: var(--teal-lt); font-weight: 700; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; margin-bottom: 28px; }
+    .pricing-card { background: var(--cream); border: 1px solid var(--border); border-radius: 16px; padding: 32px; position: relative; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
+    .pricing-card:hover { border-color: var(--teal); box-shadow: 0 16px 48px rgba(14,158,142,0.1); transform: translateY(-4px); }
+    .pricing-card.popular { border-color: var(--teal); background: var(--white); box-shadow: 0 8px 32px rgba(14,158,142,0.15); }
+    .pricing-popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--teal); color: var(--white); font-size: 11px; font-weight: 800; padding: 4px 14px; border-radius: 99px; white-space: nowrap; letter-spacing: 0.5px; text-transform: uppercase; }
+    .pricing-tier { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--teal); margin-bottom: 8px; }
+    .pricing-staff { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 16px; }
+    .pricing-amount { font-family: 'Fraunces', serif; font-size: 44px; font-weight: 900; color: var(--navy); line-height: 1; margin-bottom: 4px; }
+    .pricing-amount span { font-size: 20px; }
+    .pricing-per { font-size: 13px; color: var(--mid); margin-bottom: 24px; }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .pricing-features li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--slate); }
+    .pricing-features li::before { content: '✓'; color: var(--teal); font-weight: 700; font-size: 14px; flex-shrink: 0; }
+    .pricing-note { background: #f0fdf9; border: 1px solid #ccfbf1; border-radius: 10px; padding: 16px 20px; font-size: 13px; color: var(--slate); text-align: center; line-height: 1.6; }
+    .pricing-note strong { color: var(--teal); }
+
+    /* DEMO CTA */
+    .demo-cta { background: linear-gradient(135deg, #0e9e8e 0%, #0d7a6e 100%); padding: 80px 48px; text-align: center; position: relative; overflow: hidden; }
+    .demo-cta::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 80px); }
+    .demo-cta-inner { max-width: 700px; margin: 0 auto; position: relative; }
+    .demo-cta h2 { font-family: 'Fraunces', serif; font-size: clamp(30px, 4vw, 46px); font-weight: 900; color: var(--white); margin-bottom: 16px; }
+    .demo-cta p { font-size: 18px; color: rgba(255,255,255,0.85); margin-bottom: 36px; line-height: 1.6; }
+    .demo-credentials { background: rgba(0,0,0,0.2); border-radius: 12px; padding: 22px 28px; margin-bottom: 32px; display: inline-block; text-align: left; }
+    .cred-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 10px; }
+    .cred-row { display: flex; gap: 20px; flex-wrap: wrap; font-size: 13px; color: rgba(255,255,255,0.85); }
+    .cred-item strong { color: var(--white); font-weight: 700; }
+    .btn-white { display: inline-flex; align-items: center; gap: 8px; background: var(--white); color: var(--teal); padding: 18px 40px; border-radius: 10px; font-size: 17px; font-weight: 700; text-decoration: none; transition: transform 0.15s, box-shadow 0.2s; box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+    .btn-white:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(0,0,0,0.3); }
+
+    /* FAQ */
+    .faq { background: var(--cream); padding: 100px 48px; }
+    .faq-inner { max-width: 800px; margin: 0 auto; }
+    .faq-header { text-align: center; margin-bottom: 56px; }
+    .faq-header .section-sub { margin: 0 auto; }
+    .faq-list { display: flex; flex-direction: column; gap: 0; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:first-of-type { border-top: 1px solid var(--border); }
+    .faq-question { width: 100%; background: none; border: none; padding: 22px 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600; color: var(--navy); text-align: left; transition: color 0.2s; }
+    .faq-question:hover { color: var(--teal); }
+    .faq-icon { font-size: 20px; color: var(--teal); flex-shrink: 0; transition: transform 0.3s; font-weight: 400; line-height: 1; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
+    .faq-answer-inner { padding: 0 0 20px; font-size: 15px; color: var(--mid); line-height: 1.7; }
+    .faq-item.open .faq-answer { max-height: 300px; }
+
+    /* ABOUT */
+    .about { background: var(--white); padding: 80px 48px; }
+    .about-inner { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 60px; align-items: center; }
+    .about-logo-wrap { text-align: center; }
+    .about-logo { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 900; color: var(--navy); line-height: 1.2; }
+    .about-logo span { color: var(--teal); }
+    .about-logo-tag { font-size: 12px; color: var(--mid); margin-top: 8px; letter-spacing: 0.5px; }
+    .about-divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--teal), var(--teal-lt)); border-radius: 99px; margin: 16px auto; }
+    .about-stat { font-family: 'Fraunces', serif; font-size: 36px; font-weight: 900; color: var(--teal); }
+    .about-stat-label { font-size: 12px; color: var(--mid); }
+    .about-content h2 { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 900; color: var(--navy); margin-bottom: 16px; }
+    .about-content p { font-size: 15px; color: var(--mid); line-height: 1.8; }
+
+    /* CONTACT */
+    .contact { background: var(--cream); padding: 100px 48px; }
+    .contact-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .contact h2 { font-family: 'Fraunces', serif; font-size: clamp(30px, 4vw, 42px); font-weight: 900; color: var(--navy); margin-bottom: 16px; }
+    .contact-sub { font-size: 16px; color: var(--mid); line-height: 1.7; margin-bottom: 36px; }
+    .contact-methods { display: flex; flex-direction: column; gap: 14px; }
+    .contact-method { display: flex; align-items: center; gap: 16px; padding: 18px 22px; border-radius: 12px; background: var(--white); border: 1px solid var(--border); text-decoration: none; transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s; }
+    .contact-method:hover { border-color: var(--teal); box-shadow: 0 8px 24px rgba(14,158,142,0.1); transform: translateX(4px); }
+    .contact-method-icon { width: 42px; height: 42px; border-radius: 10px; background: rgba(14,158,142,0.1); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .contact-method-label { font-size: 11px; color: var(--mid); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+    .contact-method-value { font-size: 14px; font-weight: 600; color: var(--navy); margin-top: 2px; }
+    .contact-form { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 40px; }
+    .contact-form h3 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .contact-form p { font-size: 14px; color: var(--mid); margin-bottom: 24px; }
+    .form-group { margin-bottom: 18px; }
+    .form-label { display: block; font-size: 11px; font-weight: 700; color: var(--slate); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 7px; }
+    .form-input, .form-select, .form-textarea { width: 100%; padding: 11px 14px; background: var(--cream); border: 1px solid var(--border); border-radius: 8px; font-size: 14px; color: var(--navy); font-family: 'DM Sans', sans-serif; transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(14,158,142,0.1); }
+    .form-textarea { min-height: 110px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .btn-submit { width: 100%; padding: 14px; background: var(--teal); color: var(--white); border: none; border-radius: 8px; font-size: 15px; font-weight: 700; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+    .btn-submit:hover { background: var(--teal-lt); transform: translateY(-1px); }
+    .form-success { display: none; text-align: center; padding: 16px; margin-top: 14px; background: rgba(22,163,74,0.1); border: 1px solid rgba(22,163,74,0.3); border-radius: 8px; color: var(--green); font-weight: 600; font-size: 14px; }
+
+    /* FOOTER */
+    footer { background: var(--navy); padding: 48px; }
+    .footer-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 32px; padding-bottom: 32px; margin-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-logo { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 900; color: var(--white); }
+    .footer-logo span { color: var(--teal); }
+    .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+    .footer-t3c { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.25); padding: 4px 12px; border-radius: 99px; font-size: 11px; font-weight: 700; color: #fbbf24; }
+    .footer-company { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 8px; }
+    .footer-company strong { color: var(--teal-lt); font-weight: 600; }
+    .footer-links { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 8px; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--teal-lt); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 14px 24px; }
+      .nav-links { display: none; }
+      .hero, .pain, .features, .how, .demo-cta, .contact, .quickstart, .t3c, .faq, .about, .pricing, .testimonials { padding: 60px 24px; }
+      .hero { padding-top: 100px; }
+      .hero-inner, .quickstart-inner, .pain-inner, .contact-inner, .t3c-inner, .about-inner { grid-template-columns: 1fr; gap: 40px; }
+      .features-grid, .testimonials-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .how-steps { grid-template-columns: 1fr 1fr; }
+      .how-steps::before { display: none; }
+      footer { padding: 32px 24px; }
+      .pricing-setup { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">Compliance<span>Ready</span></div>
+  <div class="nav-links">
+    <a href="#t3c">T3C Ready</a>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+    <a href="https://compliance-ready-demo.vercel.app" target="_blank" class="nav-cta">Try Live Demo →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badges">
+        <div class="hero-badge badge-teal">Built for Texas GRO & RTC Facilities</div>
+        <div class="hero-badge badge-amber">T3C Ready Software</div>
+      </div>
+      <h1>Stop <em>scrambling</em> when compliance is on the line.</h1>
+      <p class="hero-sub">ComplianceReady keeps your staff training records audit-ready 365 days a year — TAC §748 compliance, T3C credentialing support, staff clearance, CE hours, and certificates, all in one place.</p>
+      <div class="hero-actions">
+        <a href="https://compliance-ready-demo.vercel.app" target="_blank" class="btn-primary">🎓 Try ComplianceReady Free</a>
+        <a href="https://shorturl.at/2vqLa" target="_blank" class="btn-secondary">📅 Schedule a Call</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="hero-stat-num">§748</div><div class="hero-stat-label">TAC Compliant</div></div>
+        <div><div class="hero-stat-num">T3C</div><div class="hero-stat-label">Ready Software</div></div>
+        <div><div class="hero-stat-num">60s</div><div class="hero-stat-label">Audit Report</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="app-mockup">
+        <div class="mockup-bar">
+          <div class="mockup-dot" style="background:#f87171"></div>
+          <div class="mockup-dot" style="background:#fbbf24"></div>
+          <div class="mockup-dot" style="background:#4ade80"></div>
+          <span class="mockup-title">ComplianceReady — Leadership Dashboard</span>
+        </div>
+        <div class="mockup-content">
+          <div class="mockup-banner">🎯 DEMO MODE — Sample data only</div>
+          <div class="mockup-clearance">
+            <span style="font-size:20px">✅</span>
+            <div>
+              <div class="mockup-clearance-text">CLEARED — Eligible to work independently</div>
+              <div class="mockup-clearance-sub">Cleared since 2024-02-14 · All pre-service complete</div>
+            </div>
+          </div>
+          <div class="mockup-stats">
+            <div class="mockup-stat"><div class="mockup-stat-v" style="color:#4ade80">5/6</div><div class="mockup-stat-l">✅ Cleared</div></div>
+            <div class="mockup-stat"><div class="mockup-stat-v" style="color:#f87171">4</div><div class="mockup-stat-l">Overdue</div></div>
+            <div class="mockup-stat"><div class="mockup-stat-v" style="color:#60a5fa">58/70</div><div class="mockup-stat-l">Trainings</div></div>
+            <div class="mockup-stat"><div class="mockup-stat-v" style="color:#4ade80">40h</div><div class="mockup-stat-l">Hours</div></div>
+          </div>
+          <div class="mockup-prog-wrap">
+            <div class="mockup-prog-label"><span>Annual CE Hours</span><span style="color:#4ade80">✓ Requirement Met</span></div>
+            <div class="mockup-progress"><div class="mockup-progress-fill" style="width:100%"></div></div>
+          </div>
+          <div class="mockup-training"><span class="mockup-training-name">🔑 CANR Training</span><span class="mkbadge mkbadge-done">✓ Complete</span></div>
+          <div class="mockup-training"><span class="mockup-training-name">📅 Annual CPR & First Aid</span><span class="mkbadge mkbadge-over">✗ Overdue</span></div>
+          <div class="mockup-training"><span class="mockup-training-name">✍️ Staff Code of Conduct</span><span class="mkbadge mkbadge-done">✓ Signed</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- T3C SECTION -->
+<section class="t3c" id="t3c">
+  <div class="t3c-inner">
+    <div class="reveal">
+      <div class="t3c-badge-big">
+        <div class="t3c-badge-icon">🏅</div>
+        <div>
+          <div class="t3c-badge-text">T3C Ready Software</div>
+          <div class="t3c-badge-sub">Texas Child-Centered Care · DFPS Credentialing Support</div>
+        </div>
+      </div>
+      <h2>ComplianceReady is <em>T3C Ready</em> — because your software should be too.</h2>
+      <p>Texas Child-Centered Care (T3C) represents a complete transformation of the foster care system — replacing the Service Level System with 24 clearly defined Service Packages, new credentialing requirements, and higher documentation standards for every GRO and RTC in Texas.</p>
+      <p>All residential childcare providers must transition to T3C by August 2027. ComplianceReady was designed with this transition in mind — helping your facility stay fully documented, staff properly trained, and credentials supported every step of the way.</p>
+      <a href="https://shorturl.at/2vqLa" target="_blank" class="btn-primary" style="display:inline-flex;margin-top:8px;">📅 Talk to Us About T3C →</a>
+    </div>
+    <div class="t3c-cards reveal">
+      <div class="t3c-card">
+        <div class="t3c-card-icon">📋</div>
+        <div>
+          <div class="t3c-card-title">Service Package Training Documentation</div>
+          <div class="t3c-card-text">Track staff training requirements tied to your specific T3C Service Packages — with completion records, signatures, and CE hours organized and ready for credentialing review.</div>
+        </div>
+      </div>
+      <div class="t3c-card">
+        <div class="t3c-card-icon">🔑</div>
+        <div>
+          <div class="t3c-card-title">Staff Clearance & Credentialing Support</div>
+          <div class="t3c-card-text">T3C requires documented, verified staff qualifications. ComplianceReady's clearance tracking ensures every staff member meets pre-service requirements before working independently — a key T3C expectation.</div>
+        </div>
+      </div>
+      <div class="t3c-card">
+        <div class="t3c-card-icon">📊</div>
+        <div>
+          <div class="t3c-card-title">Audit-Ready Reports for DFPS Review</div>
+          <div class="t3c-card-text">Print professional compliance reports in 60 seconds — formatted to show DFPS reviewers exactly what they need to see during T3C credential reviews and annual reporting cycles.</div>
+        </div>
+      </div>
+      <div class="t3c-card">
+        <div class="t3c-card-icon">🚀</div>
+        <div>
+          <div class="t3c-card-title">Built for the T3C Transition Timeline</div>
+          <div class="t3c-card-text">With the August 2027 deadline approaching, there's no time to waste on paper-based tracking. ComplianceReady gets your facility organized, documented, and credential-ready — fast.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK START -->
+<section class="quickstart" id="quickstart">
+  <div class="quickstart-inner">
+    <div>
+      <div class="section-label">Already Have Records? No Problem.</div>
+      <h2>Start where you <em>actually are</em> — not from zero.</h2>
+      <p class="quickstart-lead">Most facilities worry that switching systems means losing history or making staff redo trainings they've already completed. With ComplianceReady, that's never the case. We built specific tools to bring your existing records in — so you're fully operational from day one.</p>
+      <a href="https://compliance-ready-demo.vercel.app" target="_blank" class="btn-primary" style="display:inline-flex;margin-top:8px;">See It in Action →</a>
+    </div>
+    <div class="qs-steps reveal">
+      <div class="qs-step">
+        <div class="qs-icon">📁</div>
+        <div>
+          <div class="qs-title">Log Prior Year Training Hours</div>
+          <div class="qs-text">Have years of training hours on paper or in spreadsheets? Log them as verified prior records. They count toward each employee's annual CE total immediately — no history left behind.</div>
+        </div>
+      </div>
+      <div class="qs-step">
+        <div class="qs-icon">🔑</div>
+        <div>
+          <div class="qs-title">Manually Clear Already-Cleared Staff</div>
+          <div class="qs-text">Staff completed pre-service training before you joined ComplianceReady? Leadership confirms clearance with a verified date. No repeat trainings. No starting over.</div>
+        </div>
+      </div>
+      <div class="qs-step">
+        <div class="qs-icon">📅</div>
+        <div>
+          <div class="qs-title">Backfill Historical Completion Dates</div>
+          <div class="qs-text">Enter past completion dates so your records reflect real history — not just the day you started using the app. Your compliance record is complete from day one.</div>
+        </div>
+      </div>
+      <div class="qs-step">
+        <div class="qs-icon">🚀</div>
+        <div>
+          <div class="qs-title">Fully Operational the Same Day</div>
+          <div class="qs-text">Most facilities have all staff added, history imported, and clearances confirmed within a single business day. No IT department. No complicated migration. Just log in and go.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN POINTS -->
+<section class="pain">
+  <div class="pain-inner">
+    <div>
+      <div class="section-label">Sound Familiar?</div>
+      <h2 class="section-title">The audit is tomorrow. Where are your training records?</h2>
+      <p class="section-sub">Every GRO and RTC operator knows this panic. ComplianceReady was built to end it — by someone who lived it.</p>
+      <div class="quote-block" style="margin-top:40px;">
+        <p class="quote-text">One missing training record shouldn't put your entire operation at risk. But without the right system, it does — every single audit season.</p>
+        <div class="quote-author">The Reality for Most Texas Facilities</div>
+        <div class="quote-role">Managing compliance manually in binders & spreadsheets</div>
+        <div class="quote-stat">
+          <div><div class="quote-stat-num">73%</div><div class="quote-stat-label">of compliance violations involve incomplete training records</div></div>
+          <div><div class="quote-stat-num">40+</div><div class="quote-stat-label">CE hours required per staff per year under TAC §748</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="pain-cards reveal">
+      <div class="pain-card"><div class="pain-icon">😰</div><div><div class="pain-card-title">Audit Panic Every Time</div><div class="pain-card-text">Scrambling through binders and spreadsheets the night before a DFPS inspection — never fully confident everything is in order.</div></div></div>
+      <div class="pain-card"><div class="pain-icon">⛔</div><div><div class="pain-card-title">Staff Working Uncleared</div><div class="pain-card-text">Without a reliable tracking system, staff can slip through the cracks — working independently before completing all required pre-service trainings.</div></div></div>
+      <div class="pain-card"><div class="pain-icon">📋</div><div><div class="pain-card-title">Hours Tracking Is a Manual Nightmare</div><div class="pain-card-text">Calculating whether each staff member has met their 40 or 80-hour CE requirement — across multiple formats, sources, and years — takes hours every month.</div></div></div>
+      <div class="pain-card"><div class="pain-icon">🔄</div><div><div class="pain-card-title">Turnover Wipes Out Your Records</div><div class="pain-card-text">When staff leave, their training history often disappears with them — leaving gaps in your compliance documentation that surface at the worst possible time.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="features-inner">
+    <div class="features-header reveal">
+      <div class="section-label">Everything You Need</div>
+      <h2 class="section-title">Built specifically for Texas residential care</h2>
+      <p class="section-sub">Not a generic HR tool. ComplianceReady is purpose-built for GRO and RTC facilities operating under TAC Chapter 748 and transitioning to T3C.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔑</div>
+        <div class="feature-title">Clearance Tracking</div>
+        <div class="feature-text">Know exactly which staff are cleared to work independently. Clearance locks automatically when pre-service trainings are complete — or leadership manually confirms clearance for verified prior records.</div>
+        <span class="feature-tag">TAC §748 Required</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">⏱️</div>
+        <div class="feature-title">Annual Hours Dashboard</div>
+        <div class="feature-text">Automatically tracks CE hours per employee — 40 hours for year 2+ staff, 80 hours for first-year Direct Care. Prior paper records count too. Visual bars show exactly where everyone stands.</div>
+        <span class="feature-tag">Auto-Calculated</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📝</div>
+        <div class="feature-title">Quiz & Sign-Off System</div>
+        <div class="feature-text">Staff complete trainings directly in the app — reading documents, taking quizzes, signing acknowledgements with their initials, and uploading certificates. All from their phone.</div>
+        <span class="feature-tag">Paperless</span>
+      </div>
+      <div class="feature-card highlight reveal">
+        <div class="feature-new feature-new-amber">KEY FEATURE</div>
+        <div class="feature-icon feature-icon-amber">📁</div>
+        <div class="feature-title">Prior Records Import</div>
+        <div class="feature-text">Already have years of training history on paper? Log prior year hours with verified dates and notes. Staff who are already cleared can be confirmed manually — no starting over, no history lost.</div>
+        <span class="feature-tag feature-tag-amber">Bring Your History</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🏆</div>
+        <div class="feature-title">Certificate Vault</div>
+        <div class="feature-text">Store CPR cards, First Aid certs, and completion documents securely. Everything is accessible during audits with one click — no more digging through filing cabinets at the worst possible moment.</div>
+        <span class="feature-tag">Audit-Ready</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Instant Compliance Reports</div>
+        <div class="feature-text">Print individual or group compliance reports in 60 seconds — professionally formatted with completion dates, initials, quiz scores, hours totals, and clearance status ready for any reviewer.</div>
+        <span class="feature-tag">Print in 60 Seconds</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🏢</div>
+        <div class="feature-title">In-Service Session Logs</div>
+        <div class="feature-text">Log monthly in-service sessions with attendance records, facilitator info, curriculum notes, and TAC §748.131 citations. Print professional sign-in sheets directly from the app.</div>
+        <span class="feature-tag">§748.131</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🤖</div>
+        <div class="feature-title">AI Compliance Assistant</div>
+        <div class="feature-text">Ask plain-English questions — "Who isn't cleared?", "Who is behind on hours?", "Show Year 1 staff" — and get instant answers. No spreadsheets to filter. No reports to run.</div>
+        <span class="feature-tag">Powered by AI</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🎓</div>
+        <div class="feature-title">Custom Training Modules</div>
+        <div class="feature-text">Organizations can upload their own training content, create quizzes directly within the system, link to third-party trainings, and document staff acknowledgment of reviewed policies. Custom modules can also be built specifically for your organization's portal.</div>
+        <a href="https://shorturl.at/2vqLa" target="_blank" class="feature-link">Reach out to learn more →</a>
+        <br/><span class="feature-tag">Your Content, Your Way</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔐</div>
+        <div class="feature-title">Multi-User Leadership Access</div>
+        <div class="feature-text">Assign separate, secure access codes to multiple administrators, program directors, and supervisors. Each leader gets their own login — no sharing a single master code across your leadership team.</div>
+        <span class="feature-tag">Role-Based Access</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📱</div>
+        <div class="feature-title">Works on Any Device</div>
+        <div class="feature-text">Staff complete trainings from their phone, tablet, or computer. No app to download — just a browser. Leadership sees real-time updates from anywhere, including during inspections.</div>
+        <span class="feature-tag">100% Web-Based</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🛡️</div>
+        <div class="feature-title">Secure & Encrypted Storage</div>
+        <div class="feature-text">Your staff data is protected with security-first infrastructure with AES-256 encryption, automatic data backup, and dedicated storage. Your compliance records are safe, encrypted, and always accessible when you need them.</div>
+        <span class="feature-tag">Secure & Encrypted</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="testimonials-inner">
+    <div class="testimonials-header reveal">
+      <div class="section-label" style="color:var(--teal-lt)">Real Voices</div>
+      <h2 class="section-title" style="color:var(--white)">What people in the field are saying</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,0.6);margin:0 auto;">From treatment directors to licensing reviewers to board members — ComplianceReady is making an impact across Texas residential care.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"ComplianceReady lets us focus on treatment, not paperwork. Our clinical team stays aligned while remaining fully compliant."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">B</div>
+          <div>
+            <div class="testimonial-name">Beryl S.</div>
+            <div class="testimonial-role">Treatment Director</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"The reports are all we need to show compliance. With T3C, we are moving to electronic files — and ComplianceReady makes that transition seamless."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">L</div>
+          <div>
+            <div class="testimonial-name">Licensing Reviewer</div>
+            <div class="testimonial-role">Texas Residential Care</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"As a board member of a Texas RTC, I've seen a lot of systems. ComplianceReady stands out for how clearly it aligns operations with real compliance standards."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">T</div>
+          <div>
+            <div class="testimonial-name">Tonita T.</div>
+            <div class="testimonial-role">Board Member, Texas RTC</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <div class="how-header reveal">
+      <div class="section-label">Simple From Day One</div>
+      <h2 class="section-title">Up and running — with your history — in one day</h2>
+      <p class="section-sub">No IT department. No complicated setup. Your existing records come with you.</p>
+    </div>
+    <div class="how-steps">
+      <div class="how-step reveal">
+        <div class="how-step-num">1</div>
+        <div class="how-step-title">We Set Up Your Account</div>
+        <div class="how-step-text">Your training library is configured with TAC §748 and T3C-aligned trainings pre-loaded for Texas facilities — customized to your specific service packages.</div>
+      </div>
+      <div class="how-step reveal">
+        <div class="how-step-num">2</div>
+        <div class="how-step-title">Add Staff & Import History</div>
+        <div class="how-step-text">Add your employees and bring existing records in. Staff already cleared get confirmed. Prior year hours get logged. Nothing gets left behind or repeated.</div>
+      </div>
+      <div class="how-step reveal">
+        <div class="how-step-num">3</div>
+        <div class="how-step-title">Staff Complete Trainings</div>
+        <div class="how-step-text">Employees log in with a simple PIN, read materials, take quizzes, and sign acknowledgements — all from their phone. You see completions in real time.</div>
+      </div>
+      <div class="how-step reveal">
+        <div class="how-step-num">4</div>
+        <div class="how-step-title">Always Audit-Ready</div>
+        <div class="how-step-text">Print a complete compliance report in 60 seconds. Walk into any DFPS review or T3C credential check with professional, organized documentation — every single time.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-inner">
+    <div class="pricing-header reveal">
+      <div class="section-label">Simple, Transparent Pricing</div>
+      <h2 class="section-title">One setup. One monthly fee. No surprises.</h2>
+      <p class="section-sub">Every plan includes AES-256 encrypted storage, automatic data backup, and secure cloud storage. No long-term contracts required.</p>
+    </div>
+
+    <div class="pricing-setup reveal">
+      <div class="pricing-setup-left">
+        <h3>🚀 One-Time Implementation Fee</h3>
+        <p>We handle everything — virtual onboarding session, full system configuration, training library setup, staff import, and technical support to get your team up and running confidently from day one.</p>
+        <div class="pricing-setup-includes">
+          <div class="pricing-include-item">Virtual setup session</div>
+          <div class="pricing-include-item">Team training included</div>
+          <div class="pricing-include-item">Full configuration</div>
+          <div class="pricing-include-item">Technical support</div>
+        </div>
+      </div>
+      <div class="pricing-setup-right">
+        <div class="pricing-setup-price">$1,000</div>
+        <div class="pricing-setup-label">one-time · virtual</div>
+      </div>
+    </div>
+
+    <div class="pricing-grid reveal">
+      <div class="pricing-card">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-staff">0–15 Staff Members</div>
+        <div class="pricing-amount"><span>$</span>159</div>
+        <div class="pricing-per">per month</div>
+        <ul class="pricing-features">
+          <li>Up to 15 staff members</li>
+          <li>2 admin login codes</li>
+          <li>Full training library</li>
+          <li>Clearance tracking</li>
+          <li>CE hours dashboard</li>
+          <li>Compliance reports</li>
+          <li>Certificate vault</li>
+          <li>secure and encrypted</li>
+          <li>Automatic data backup</li>
+          <li>Secure cloud storage</li>
+        </ul>
+      </div>
+      <div class="pricing-card popular">
+        <div class="pricing-popular-badge">Most Popular</div>
+        <div class="pricing-tier">Professional</div>
+        <div class="pricing-staff">16–30 Staff Members</div>
+        <div class="pricing-amount"><span>$</span>199</div>
+        <div class="pricing-per">per month</div>
+        <ul class="pricing-features">
+          <li>Up to 30 staff members</li>
+          <li>2 admin login codes</li>
+          <li>Full training library</li>
+          <li>Clearance tracking</li>
+          <li>CE hours dashboard</li>
+          <li>Compliance reports</li>
+          <li>Certificate vault</li>
+          <li>In-service session logs</li>
+          <li>secure and encrypted</li>
+          <li>Automatic data backup</li>
+          <li>Secure cloud storage</li>
+        </ul>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-tier">Enterprise</div>
+        <div class="pricing-staff">31–45 Staff Members</div>
+        <div class="pricing-amount"><span>$</span>240</div>
+        <div class="pricing-per">per month</div>
+        <ul class="pricing-features">
+          <li>Up to 45 staff members</li>
+          <li>2 admin login codes</li>
+          <li>Full training library</li>
+          <li>Clearance tracking</li>
+          <li>CE hours dashboard</li>
+          <li>Compliance reports</li>
+          <li>Certificate vault</li>
+          <li>In-service session logs</li>
+          <li>AI compliance assistant</li>
+          <li>secure and encrypted</li>
+          <li>Automatic data backup</li>
+          <li>Secure cloud storage</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pricing-note reveal">
+      <strong>Have more than 45 staff members?</strong> No problem — contact us for a custom quote tailored to your facility's size and needs. We'll build a plan that works for you.<br/>
+      <strong>All plans include:</strong> data security · Automatic data backup · Secure cloud storage · 2 admin login codes
+    </div>
+  </div>
+</section>
+
+<!-- DEMO CTA -->
+<section class="demo-cta">
+  <div class="demo-cta-inner">
+    <h2>See it in action — right now</h2>
+    <p>Explore the full demo with realistic sample data. No signup required. See exactly what your staff and leadership would experience on day one.</p>
+    <div class="demo-credentials">
+      <div class="cred-title">Demo Login Credentials</div>
+      <div class="cred-row">
+        <div class="cred-item"><strong>Priya Nair</strong> / 8847 — fully compliant ✅</div>
+        <div class="cred-item"><strong>Jordan Ellis</strong> / 3312 — new hire, not cleared ⛔</div>
+        <div class="cred-item"><strong>Devon Castillo</strong> / 4429 — overdue trainings 🚨</div>
+        <div class="cred-item">Leadership code: <strong>demo2026</strong> 🛡️</div>
+      </div>
+    </div>
+    <br/>
+    <a href="https://compliance-ready-demo.vercel.app" target="_blank" class="btn-white">🎓 Open ComplianceReady Demo →</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="faq-inner">
+    <div class="faq-header reveal">
+      <div class="section-label">Common Questions</div>
+      <h2 class="section-title">Answers before you ask</h2>
+      <p class="section-sub">Everything you need to know before getting started.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Do we have to redo trainings our staff already completed?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Absolutely not. ComplianceReady is built to meet you where you are. Leadership can manually confirm clearance for staff who already completed pre-service training, and prior year training hours can be logged with verified dates and notes. Your history comes with you — no one repeats a training they've already done.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Does it work on phones and tablets?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Yes — ComplianceReady is 100% web-based, which means staff can complete trainings, sign acknowledgements, and take quizzes from any phone, tablet, or computer. No app to download, no software to install. If they have a browser and internet, they're good to go.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How long does setup take?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Most facilities are fully up and running within a single business day. Our one-time implementation includes a virtual setup session where we configure your training library, add your staff, import your existing records, and walk your leadership team through the system. You'll be audit-ready before the session ends.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Is our data secure and secure and encrypted?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Yes. ComplianceReady is secure and encrypted and built with data security as a foundation — not an afterthought. Your staff records, training completions, and certificates are encrypted, automatically backed up, and stored securely in the cloud. You're always in control of your data, and it's always there when you need it.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Does ComplianceReady support our T3C transition?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Yes — ComplianceReady is T3C Ready. As Texas moves all GROs and RTCs to the Texas Child-Centered Care system by August 2027, ComplianceReady helps you stay organized with training documentation tied to your specific T3C Service Packages, staff clearance tracking, and professional reports formatted for DFPS credential reviews.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Is there a long-term contract?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">No long-term contracts required. We believe in earning your business through performance — not locking you in. After the one-time implementation fee, your monthly subscription continues as long as ComplianceReady is delivering value for your facility.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner reveal">
+    <div class="about-logo-wrap">
+      <div class="about-logo">Zero<span>Miss</span><br/>AI</div>
+      <div class="about-divider"></div>
+      <div class="about-stat">20+</div>
+      <div class="about-stat-label">Years Business Experience</div>
+      <div class="about-logo-tag" style="margin-top:12px;">Work Smarter · Collaborate Better<br/>Create More</div>
+    </div>
+    <div class="about-content">
+      <div class="section-label">About ZeroMissAI Solutions</div>
+      <h2>Built by operators. Designed for compliance.</h2>
+      <p>ComplianceReady is delivered by ZeroMissAI Solutions — a Texas-based AI and business automation company with over 20 years of combined business operations experience. ZeroMissAI builds intelligent systems that help organizations work smarter, eliminate inefficiencies, and scale with confidence. ComplianceReady was born from a firsthand understanding of the challenges facing residential childcare providers — the compliance pressure, the documentation burden, and the very real consequences of missed training records. We built the tool we wish existed. Our mission is simple: zero missed compliance. Zero missed training.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div>
+      <div class="section-label">Get in Touch</div>
+      <h2>Let's talk about your facility</h2>
+      <p class="contact-sub">Ready to replace the binders and spreadsheets for good? Reach out and we'll walk you through exactly how ComplianceReady works — including how to bring your existing records in from day one.</p>
+      <div class="contact-methods">
+        <a href="mailto:complianceready@zeromissai.com" class="contact-method">
+          <div class="contact-method-icon">✉️</div>
+          <div>
+            <div class="contact-method-label">Email</div>
+            <div class="contact-method-value">Send Us a Message</div>
+          </div>
+        </a>
+        <a href="tel:+12812005802" class="contact-method">
+          <div class="contact-method-icon">📞</div>
+          <div>
+            <div class="contact-method-label">Phone / Text</div>
+            <div class="contact-method-value">(281) 200-5802</div>
+          </div>
+        </a>
+        <a href="https://shorturl.at/2vqLa" target="_blank" class="contact-method">
+          <div class="contact-method-icon">📅</div>
+          <div>
+            <div class="contact-method-label">Schedule a Call</div>
+            <div class="contact-method-value">Book a Free Strategy Session →</div>
+          </div>
+        </a>
+        <a href="https://compliance-ready-demo.vercel.app" target="_blank" class="contact-method">
+          <div class="contact-method-icon">🎓</div>
+          <div>
+            <div class="contact-method-label">Live Demo</div>
+            <div class="contact-method-value">Try ComplianceReady Free →</div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-form reveal">
+      <h3>Request a Demo Call</h3>
+      <p>Tell us about your facility and we'll reach out within 24 hours to schedule a personalized walkthrough — including how to bring your existing records over.</p>
+      <form id="contactForm" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Your Name *</label>
+            <input type="text" class="form-input" placeholder="Jane Smith" required/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Facility Name *</label>
+            <input type="text" class="form-input" placeholder="Your Facility" required/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Email *</label>
+            <input type="email" class="form-input" placeholder="you@facility.com" required/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input type="tel" class="form-input" placeholder="(281) 555-0000"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Facility Type</label>
+          <select class="form-select">
+            <option value="">Select your facility type</option>
+            <option>General Residential Operation (GRO)</option>
+            <option>Residential Treatment Center (RTC)</option>
+            <option>Therapeutic Foster Care</option>
+            <option>Other Residential Care</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Number of Staff</label>
+          <select class="form-select">
+            <option value="">Select range</option>
+            <option>1–15 staff (Starter)</option>
+            <option>16–30 staff (Professional)</option>
+            <option>31–45 staff (Enterprise)</option>
+            <option>45+ staff (Custom)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tell Us About Your Situation</label>
+          <textarea class="form-textarea" placeholder="What does your current compliance process look like? Any existing paper records to bring over? Specific challenges you're facing…"></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Send Message →</button>
+        <div class="form-success" id="formSuccess">✅ Message sent! We'll reach out within 24 hours.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">Compliance<span>Ready</span></div>
+      <div class="footer-tagline">Staff training compliance for residential care facilities</div>
+      <div class="footer-t3c">🏅 T3C Ready Software</div>
+      <div class="footer-company" style="margin-top:10px;">Delivered by <strong>ZeroMissAI Solutions</strong></div>
+    </div>
+    <div>
+      <div class="footer-links">
+        <a href="#t3c">T3C Ready</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#about">About</a>
+        <a href="https://compliance-ready-demo.vercel.app" target="_blank">Try Demo</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 ZeroMissAI Solutions · ComplianceReady · Built for Texas GRO/RTC operators · TAC Chapter 748 · T3C Ready</div>
+    <div class="footer-copy">complianceready@zeromissai.com · (281) 200-5802</div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav shadow
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').style.boxShadow =
+      window.scrollY > 50 ? '0 4px 32px rgba(0,0,0,0.3)' : 'none';
+  });
+
+  // FAQ toggle
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Contact form
+  function handleSubmit(e) {
+    e.preventDefault();
+    const f = e.target;
+    const name = f.querySelectorAll('input[type="text"]')[0]?.value || '';
+    const facility = f.querySelectorAll('input[type="text"]')[1]?.value || '';
+    const email = f.querySelector('input[type="email"]')?.value || '';
+    const phone = f.querySelector('input[type="tel"]')?.value || '';
+    const msg = f.querySelector('textarea')?.value || '';
+    const subject = encodeURIComponent(`ComplianceReady Inquiry — ${name} · ${facility}`);
+    const body = encodeURIComponent(`Name: ${name}\nFacility: ${facility}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${msg}`);
+    window.location.href = `mailto:complianceready@zeromissai.com?subject=${subject}&body=${body}`;
+    document.getElementById('formSuccess').style.display = 'block';
+    f.reset();
+  }
+</script>
+</body>
+</html>
